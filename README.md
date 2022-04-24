@@ -2,10 +2,13 @@
 
 ## Источники данных
 
-1. SonarQube - https://rules.sonarsource.com/php
-2. PhpStan - https://phpstan.org
-3. Psalm - https://psalm.dev
-4. Phan - https://github.com/phan/phan
-5. PHPMD - https://phpmd.org
-6. Php Inspections - https://github.com/kalessil/phpinspectionsea
-7. OWASP - https://coreruleset.org
+
+| Имя             | Ссылка                                       | Статус   |
+|:----------------|:---------------------------------------------|:---------|
+| SonarQube       | https://rules.sonarsource.com/php            | Готово   |
+| PhpStan         | https://phpstan.org                          | В работе |
+| Psalm           | https://psalm.dev                            | В работе |
+| Phan            | https://github.com/phan/phan                 | В работе |
+| PHPMD           | https://phpmd.org                            | В работе |
+| Php Inspections | https://github.com/kalessil/phpinspectionsea | Готово   |
+| OWASP           | https://coreruleset.org                      | В работе |
