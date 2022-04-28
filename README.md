@@ -5,7 +5,7 @@
 | Имя             | Ссылка                                       | Статус   |
 |:----------------|:---------------------------------------------|:---------|
 | SonarQube       | https://rules.sonarsource.com/php            | Готово   |
-| PhpStan         | https://phpstan.org                          | В работе |
+| PhpStan         | https://phpstan.org                          | Готово   |
 | Psalm           | https://psalm.dev                            | Готово   |
 | Phan            | https://github.com/phan/phan                 | В работе |
 | PHPMD           | https://phpmd.org                            | Готово   |
