@@ -16,9 +16,9 @@ def parse_services(conditional_tags: dict, services: list[dict]):
     phpstan_tag = "phpstan.rules.rule"
 
     for service in services:
-        class_name = service['class']
+        class_name = service["class"]
 
-        if phpstan_tag in service.get('tags', ''):
+        if phpstan_tag in service.get("tags", ""):
             rules_files.add(class_name)
             continue
 
@@ -39,11 +39,11 @@ def parse_file(url: str) -> list[str]:
     r.encoding = "utf-8"
 
     config = neon.parse(r.text)
-    for rule in config.get('rules', []):
+    for rule in config.get("rules", []):
         rules_files.add(rule)
 
-    conditionalTags = config.get('conditionalTags', [])
-    services = config.get('services', [])
+    conditionalTags = config.get("conditionalTags", [])
+    services = config.get("services", [])
 
     services_rules = parse_services(conditionalTags, services)
     rules_files |= services_rules
