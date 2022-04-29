@@ -22,6 +22,7 @@ def main() -> None:
     parsers: list[Tool] = [SonarQube(), PhpInspections(), Psalm(), PhpMD(), PhpStan()]
     for parser in parsers:
         rules = sorted(sorted(parser.get_rules), key=len)
+        file_name = f"{parser.file_name}.json"
 
         all_count = len(rules)
         excluded = 0
@@ -29,7 +30,7 @@ def main() -> None:
 
         remaining = all_count - excluded - implemented
         row: Row = {
-            "tool_name": parser.name,
+            "tool_name": f"[{parser.name}]({file_name})",
             "rules_count": all_count,
             "excluded_count": excluded,
             "implemented_count": implemented,
@@ -37,7 +38,7 @@ def main() -> None:
         }
         rows.append(row)
 
-        out_file = SAVE_PATH / f"{parser.file_name}.json"
+        out_file = SAVE_PATH / file_name
         out_file.write_text(json.dumps(rules, indent=2), encoding="utf-8")
         git.add(str(SAVE_PATH), str(out_file))
 
