@@ -20,7 +20,7 @@ def _final_count(rows: list[Row]) -> Row:
     return tmp
 
 
-def table_generator(rows: list[Row]):
+def table_generator(rows: list[Row]) -> str:
     out = ""
 
     out += "|           | Количество правил | Исключено правил | Реализованно правил | Оставшиеся правила |\n"
@@ -32,4 +32,4 @@ def table_generator(rows: list[Row]):
     for row in rows:
         out += row_style.format(**row)
 
-    print(out)
+    return out

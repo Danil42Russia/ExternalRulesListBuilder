@@ -11,3 +11,8 @@
 | Php Inspections | https://github.com/kalessil/phpinspectionsea | Готово   |
 | Phan            | https://github.com/phan/phan                 | Отложено |
 | OWASP           | https://coreruleset.org                      | Отложено |
+
+## Отчёт
+
+После получения списка данных, скрипт автоматически пушит изменения отдельный
+репозиторий [ExternalRulesList](https://github.com/Danil42Russia/ExternalRulesList)
