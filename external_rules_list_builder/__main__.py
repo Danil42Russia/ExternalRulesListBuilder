@@ -26,8 +26,9 @@ def main() -> None:
     rows: list[Row] = []
 
     save_path = get_save_path()
+    git_service = git.Git(save_path)
 
-    git.clone(str(save_path))
+    git_service.clone()
 
     parsers: list[Tool] = [SonarQube(), PhpInspections(), Psalm(), PhpMD(), PhpStan()]
     for parser in parsers:
@@ -50,15 +51,16 @@ def main() -> None:
 
         out_file = save_path / file_name
         out_file.write_text(json.dumps(rules, indent=2), encoding="utf-8")
-        git.add(str(save_path), str(out_file))
+        git_service.add(str(out_file))
 
     out = markdown.table_generator(rows)
     readme_path = save_path / "README.md"
     readme_path.write_text(out, encoding="utf-8")
-    git.add(str(save_path), str(readme_path))
+    git_service.add(str(readme_path))
 
-    git.commit(str(save_path))
-    git.push(str(save_path))
+    if git_service.is_can_commit():
+        git_service.commit()
+        git_service.push()
 
 
 if __name__ == "__main__":
