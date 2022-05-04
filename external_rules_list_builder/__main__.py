@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 from external_rules_list_builder import git, markdown
@@ -10,14 +11,24 @@ from external_rules_list_builder.tools.psalm import Psalm
 from external_rules_list_builder.tools.sonarqube import SonarQube
 from external_rules_list_builder.tools.tool import Tool
 
-# fixme: поменять 300iq костыль
-SAVE_PATH = Path("C:\\Users\\danda\\source\\open-source\\ExternalRulesListBuilder\\build\\external-rules-list")
+
+def get_save_path() -> Path:
+    workspace_path_str = os.getenv("RUNNER_WORKSPACE")
+    if workspace_path_str is None:
+        workspace_path = Path(__file__).parent.parent.resolve()
+    else:
+        workspace_path = Path(workspace_path_str)
+
+    return workspace_path / "build" / "external-rules-list"
 
 
 def main() -> None:
     rows: list[Row] = []
 
-    git.clone(str(SAVE_PATH))
+    save_path = get_save_path()
+    git_service = git.Git(save_path)
+
+    git_service.clone()
 
     parsers: list[Tool] = [SonarQube(), PhpInspections(), Psalm(), PhpMD(), PhpStan()]
     for parser in parsers:
@@ -38,17 +49,18 @@ def main() -> None:
         }
         rows.append(row)
 
-        out_file = SAVE_PATH / file_name
+        out_file = save_path / file_name
         out_file.write_text(json.dumps(rules, indent=2), encoding="utf-8")
-        git.add(str(SAVE_PATH), str(out_file))
+        git_service.add(str(out_file))
 
     out = markdown.table_generator(rows)
-    readme_path = SAVE_PATH / "README.md"
+    readme_path = save_path / "README.md"
     readme_path.write_text(out, encoding="utf-8")
-    git.add(str(SAVE_PATH), str(readme_path))
+    git_service.add(str(readme_path))
 
-    git.commit(str(SAVE_PATH))
-    git.push(str(SAVE_PATH))
+    if git_service.is_can_commit():
+        git_service.commit()
+        git_service.push()
 
 
 if __name__ == "__main__":
