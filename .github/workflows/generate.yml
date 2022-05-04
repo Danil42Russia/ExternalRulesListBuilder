@@ -34,5 +34,13 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Set git credential
+        run: |
+          git config --global user.email "$GIT_USER_EMAIL"
+          git config --global user.name "$GIT_USER_NAME"
+        env:
+          GIT_USER_EMAIL: test@test.com
+          GIT_USER_NAME: test
+
       - name: Run Generate
         run: poetry run run_generate
