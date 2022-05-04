@@ -34,8 +34,5 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Get env
-        run: env
-
       - name: Run Generate
         run: poetry run run_generate
