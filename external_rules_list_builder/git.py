@@ -1,8 +1,7 @@
+import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
-
-GIT_REPO = "https://github.com/Danil42Russia/ExternalRulesList.git"
 
 
 def _commit_message() -> str:
@@ -14,8 +13,16 @@ class Git:
     def __init__(self, save_path: Path):
         self.save_path: str = str(save_path)
 
+        push_token = os.getenv("GITHUB_PUSH_TOKEN")
+        if push_token is None:
+            token = ""
+        else:
+            token = f"{push_token}:x-oauth-basic@"
+
+        self.git_repo: str = f"https://{token}github.com/Danil42Russia/ExternalRulesList.git"
+
     def clone(self):
-        command = ["git", "clone", GIT_REPO, self.save_path]
+        command = ["git", "clone", self.git_repo, self.save_path]
         proc = subprocess.run(command)
         if proc.returncode != 0:
             exit(1)
@@ -47,7 +54,7 @@ class Git:
         return noting_commit not in status_out
 
     def push(self):
-        command = ["git", "push"]
+        command = ["git", "push", self.git_repo]
 
         proc = subprocess.run(command, cwd=self.save_path)
         if proc.returncode != 0:
