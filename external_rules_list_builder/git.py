@@ -14,6 +14,7 @@ class Git:
         self.save_path: str = str(save_path)
 
         push_token = os.getenv("PUSH_GITHUB_TOKEN")
+        print(push_token)
         if push_token is None:
             token = ""
         else:
