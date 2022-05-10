@@ -9,6 +9,9 @@ def to_snake_case(name: str) -> str:
 
 
 class Tool:
+    def __init__(self) -> None:
+        print(f"Started parser {self.name}")
+
     @property
     def get_rules(self) -> list[str]:
         raise NotImplementedError
