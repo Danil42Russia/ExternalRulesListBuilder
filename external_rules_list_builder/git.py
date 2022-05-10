@@ -13,7 +13,7 @@ class Git:
     def __init__(self, save_path: Path):
         self.save_path: str = str(save_path)
 
-        push_token = os.getenv("GITHUB_PUSH_TOKEN")
+        push_token = os.getenv("PUSH_GITHUB_TOKEN")
         if push_token is None:
             token = ""
         else:
