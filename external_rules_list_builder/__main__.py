@@ -13,14 +13,30 @@ from external_rules_list_builder.tools.sonarqube import SonarQube
 from external_rules_list_builder.tools.tool import Tool
 
 
-def get_save_path() -> Path:
+def get_workspace_folder() -> Path:
     workspace_path_str = os.getenv("RUNNER_WORKSPACE")
     if workspace_path_str is None:
         workspace_path = Path(__file__).parent.parent.resolve()
     else:
         workspace_path = Path(workspace_path_str)
 
+    return workspace_path
+
+
+def get_save_path() -> Path:
+    workspace_path = get_workspace_folder()
+
     return workspace_path / "build" / "external-rules-list"
+
+
+def get_implemented(tool_name: str) -> list[str]:
+    implemented_folder = Path("implemented")
+    implemented_file_path = get_workspace_folder() / implemented_folder / f"{tool_name}.json"
+    if not implemented_file_path.exists():
+        return []
+
+    exclude_rules = json.loads(implemented_file_path.read_text(encoding="utf-8"))
+    return exclude_rules
 
 
 def main() -> None:
@@ -35,10 +51,11 @@ def main() -> None:
     for parser in parsers:
         rules = sorted(sorted(parser.get_rules), key=len)
         file_name = f"{parser.file_name}.json"
+        implemented_rules = get_implemented(parser.file_name)
 
         all_count = len(rules)
         excluded = 0
-        implemented = 0
+        implemented = len(implemented_rules)
 
         remaining = all_count - excluded - implemented
         row: Row = {
