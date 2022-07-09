@@ -4,6 +4,7 @@ from pathlib import Path
 
 from external_rules_list_builder import git, markdown
 from external_rules_list_builder.markdown import Row
+from external_rules_list_builder.tools.php_clean import PhpClean
 from external_rules_list_builder.tools.php_inspections import PhpInspections
 from external_rules_list_builder.tools.php_md import PhpMD
 from external_rules_list_builder.tools.php_stan import PhpStan
@@ -30,7 +31,7 @@ def main() -> None:
 
     git_service.clone()
 
-    parsers: list[Tool] = [SonarQube(), PhpInspections(), Psalm(), PhpMD(), PhpStan()]
+    parsers: list[Tool] = [SonarQube(), PhpInspections(), Psalm(), PhpMD(), PhpStan(), PhpClean()]
     for parser in parsers:
         rules = sorted(sorted(parser.get_rules), key=len)
         file_name = f"{parser.file_name}.json"
