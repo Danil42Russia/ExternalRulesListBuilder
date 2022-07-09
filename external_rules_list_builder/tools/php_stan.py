@@ -5,7 +5,7 @@ from external_rules_list_builder.tools.tool import Tool
 
 GITHUB_RAW_PATH = "https://raw.githubusercontent.com"
 REPO_PATH = "phpstan/phpstan-src"
-BRANCH_NAME = "1.7.x"
+BRANCH_NAME = "1.8.x"
 FOLDER_PATH = "conf"
 
 RULES_FILES = [f"config.level{i}.neon" for i in range(10)]

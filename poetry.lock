@@ -245,7 +245,7 @@ python-versions = "*"
 
 [[package]]
 name = "neon-py"
-version = "0.2.1"
+version = "0.1.7"
 description = "NEON parser for Python"
 category = "main"
 optional = false
@@ -257,7 +257,6 @@ python-dateutil = "*"
 
 [package.extras]
 test = ["pytest"]
-testing = ["pytest"]
 
 [[package]]
 name = "parse"
@@ -520,7 +519,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ac995892027d9ab29321b7ffa490da0439a791aff776f146ff6ec7ed5844616e"
+content-hash = "0a0a25b5e0891092c53b1f33c43d08a9aece528e40cdbd5f2bcab528d6c46659"
 
 [metadata.files]
 appdirs = [
@@ -599,7 +598,10 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
-neon-py = []
+neon-py = [
+    {file = "neon-py-0.1.7.tar.gz", hash = "sha256:30f27a9e0cdca3d7bd506927a099f61df3f0a1e9c5dcb9c3162b987832655945"},
+    {file = "neon_py-0.1.7-py3-none-any.whl", hash = "sha256:535071e50e30490cc020a354166407c554fbf31bcf918c8d77a9f947cb1ba13b"},
+]
 parse = [
     {file = "parse-1.19.0.tar.gz", hash = "sha256:9ff82852bcb65d139813e2a5197627a94966245c897796760a3a2a8eb66f020b"},
 ]
