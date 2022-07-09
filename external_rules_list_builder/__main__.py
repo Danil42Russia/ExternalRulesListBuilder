@@ -14,17 +14,17 @@ from external_rules_list_builder.tools.tool import Tool
 
 
 def get_workspace_folder() -> Path:
-    workspace_path_str = os.getenv("RUNNER_WORKSPACE")
-    if workspace_path_str is None:
-        workspace_path = Path(__file__).parent.parent.resolve()
-    else:
-        workspace_path = Path(workspace_path_str)
+    workspace_path = Path(__file__).parent.parent.resolve()
 
     return workspace_path
 
 
 def get_save_path() -> Path:
-    workspace_path = get_workspace_folder()
+    workspace_path_str = os.getenv("RUNNER_WORKSPACE")
+    if workspace_path_str is None:
+        workspace_path = get_workspace_folder()
+    else:
+        workspace_path = Path(workspace_path_str)
 
     return workspace_path / "build" / "external-rules-list"
 
